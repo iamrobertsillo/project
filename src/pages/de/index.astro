@@ -1,0 +1,11 @@
+---
+import { getContentBySlug } from '../../utils/content-loader';
+import Layout from '../../layouts/Layout.astro';
+import HomeTemplate from '../../templates/HomeTemplate.astro';
+
+const content = getContentBySlug('page', 'home', 'de');
+---
+
+<Layout title={content.title} lang="de">
+  <HomeTemplate content={content} />
+</Layout>

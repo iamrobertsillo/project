@@ -1,0 +1,16 @@
+{
+  "slug": "per-famiglie",
+  "type": "solution",
+  "title": "Per famiglie",
+  "description": "Descrizione della soluzione Per Famiglie",
+  "features": [
+    {
+      "title": "Caratteristica 1",
+      "description": "Descrizione della caratteristica 1"
+    }
+  ],
+  "specifications": {
+    "dimensions": "100x50x30cm",
+    "weight": "5kg"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "general": {
+    "title": "General Questions",
+    "items": [
+      {
+        "id": "general-1",
+        "question": "What services do you offer?",
+        "answer": "We offer a wide range of services..."
+      }
+    ]
+  },
+  "technical": {
+    "title": "Technical Questions",
+    "items": [
+      {
+        "id": "tech-1",
+        "question": "How do I install your products?",
+        "answer": "Our products come with detailed installation guides..."
+      }
+    ]
+  }
+}

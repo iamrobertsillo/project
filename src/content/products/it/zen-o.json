@@ -1,0 +1,17 @@
+{
+  "slug": "zen-o",
+  "type": "product",
+  "title": "Zen-0",
+  "description": "Descrizione del prodotto Mangusta",
+  "image": "./images/products/zen_principale-scaled.jpg",
+  "features": [
+    {
+      "title": "Caratteristica 1",
+      "description": "Descrizione della caratteristica 1"
+    }
+  ],
+  "specifications": {
+    "dimensions": "100x50x30cm",
+    "weight": "5kg"
+  }
+}

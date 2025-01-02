@@ -1,0 +1,158 @@
+---
+import { Debug } from 'astro:components';
+import { getContentByType } from '../utils/content-loader';
+import { getLanguageFromURL } from '../utils/i18n';
+
+const { contentType } = Astro.props;
+const lang = getLanguageFromURL(Astro.url.pathname);
+const content = getContentByType(contentType, lang);
+
+const uniqueId = `glide-${Math.random().toString(36).substring(2, 9)}`;
+---
+
+<style>
+  .glide {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .glide__slides {
+    display: flex;
+    gap: var(--space-s);
+  }
+  .glide__slide {
+    display: flex;
+    align-items: flex-end;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: var(--space-s);
+    overflow: hidden;
+    padding: var(--space-s);
+    position: relative;
+    height: 380px;
+    font-size: var(--text-m);
+    @apply text-foreground;
+  }
+  .glide__content {
+    position: relative;
+    z-index: 10;
+  }
+  .glide__slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,.8) 0%, rgba(0,0,0,0) 100%);
+    z-index: 1;
+  }
+  .glide__link { position: absolute; inset: 0; z-index: 15;}
+
+  .glide button svg { width: 1vw; }
+
+  .glide_text {font-variation-settings: 'wght' 400; font-weight: 400; }
+
+  .pagination {
+    display: flex;
+    justify-content: start;
+    align-items: flex-end;
+  }
+  .pagination__dot {
+    @apply bg-greyshade;
+    width: 10vw;
+    height: .1vh;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .pagination__dot--active {
+    @apply bg-greyshade;
+    height: .3vh;
+  }
+
+  @media ( min-width: 1024px ) {
+    .glide__slide { width: 30vw; height: 30vw; }
+  }
+</style>
+
+<div id={uniqueId} class="glide">
+  <div class="glide__track" data-glide-el="track">
+    <ul class="glide__slides">
+      {content.map(item => (
+        <li class="glide__slide" style={`background-image: url(${item.image || item.image});`}>
+          <div class="glide__content">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <div class="w-full flex justify-between items-center py-xl px-m">
+    <div class="pagination" id={`pagination-${uniqueId}`}>
+      {content.map((_, index) => (
+        <span class="pagination__dot" data-index={index}></span>
+      ))}
+    </div>
+    <div class="flex gap-xl" data-glide-el="controls">
+      <button data-glide-dir="<">
+        <svg viewBox="0 0 14 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L0.999999 13.5L12 25" stroke="#65735A" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+        </svg>              
+      </button>
+      <button data-glide-dir=">">
+        <svg viewBox="0 0 14 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 25L13 13.5L2 2" stroke="#65735A" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+        </svg>        
+      </button>
+    </div>
+  </div>
+  
+</div>
+
+<script>
+  import Glide from '@glidejs/glide';
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const sliders = document.querySelectorAll('.glide');
+
+    sliders.forEach( slide => {
+      let slideId = slide.getAttribute('id');
+      if ( slideId ) {
+        const slide = new Glide(`#${slideId}`, {
+          type: 'carousel',
+          startAt: 0,
+          perView: 3,
+          breakpoints: {
+            1024: {
+              perView: 2
+            },
+            768: {
+              perView: 1
+            }
+          }
+        });
+
+        const pagination = document.querySelectorAll(`#pagination-${slideId} .pagination__dot`);
+
+        const updateActiveDot = (index) => {
+          pagination.forEach(dot => dot.classList.remove("pagination__dot--active"));
+          pagination[index].classList.add("pagination__dot--active");
+        };
+
+        slide.on("move.after", () => {
+          const currentSlide = slide.index;
+          updateActiveDot(currentSlide);
+        });
+
+        pagination.forEach(dot => {
+          dot.addEventListener("click", () => {
+            const index = parseInt(dot.dataset.index);
+            slide.go(`=${index}`);
+          });
+        });
+
+        updateActiveDot(0);
+
+        slide.mount()
+      }
+    })
+  });
+</script>

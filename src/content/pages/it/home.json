@@ -1,0 +1,26 @@
+{
+  "type": "page",
+  "slug": "home",
+  "title": "Benvenuti",
+  "description": "La nostra pagina principale",
+  "content": {
+    "hero": {
+      "title": "Ascensori Elettrici ad <span class='text-accent'>Elevata Efficienza Energetica</span>",
+      "subtitle": "Siamo pionieri nella produzione di ascensori elettrici a elevata efficienza energetica, personalizzabili nelle finiture e progettati per essere installati in ogni tipo di ambiente, senza perdere in funzionalità e sicurezza.",
+      "cta": "Scopri di più"
+    },
+    "sections": [
+      {
+        "type": "featured",
+        "title": "I nostri prodotti in evidenza",
+        "items": [
+          {
+            "title": "Mangusta",
+            "description": "Il nostro prodotto di punta",
+            "link": "/mangusta"
+          }
+        ]
+      }
+    ]
+  }
+}

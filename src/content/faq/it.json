@@ -1,0 +1,22 @@
+{
+  "general": {
+    "title": "Domande Generali",
+    "items": [
+      {
+        "id": "general-1",
+        "question": "Quali servizi offrite?",
+        "answer": "Offriamo una vasta gamma di servizi..."
+      }
+    ]
+  },
+  "technical": {
+    "title": "Domande Tecniche",
+    "items": [
+      {
+        "id": "tech-1",
+        "question": "Come installo i vostri prodotti?",
+        "answer": "I nostri prodotti sono forniti con guide dettagliate..."
+      }
+    ]
+  }
+}

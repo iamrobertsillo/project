@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "research": "Forschung & Entwicklung",
+    "blog": "Blog",
+    "contact": "Kontakt",
+    "configurator": "Konfigurator",
+    "technical": "Technischer Bereich"
+  },
+  "common": {
+    "readMore": "Weiterlesen",
+    "contactUs": "Kontaktieren Sie uns"
+  }
+}

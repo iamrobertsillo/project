@@ -1,0 +1,26 @@
+{
+  "type": "page",
+  "slug": "home",
+  "title": "Welcome",
+  "description": "Our main page",
+  "content": {
+    "hero": {
+      "title": "Welcome to our website",
+      "subtitle": "Innovation and quality at your service",
+      "cta": "Learn more"
+    },
+    "sections": [
+      {
+        "type": "featured",
+        "title": "Our featured products",
+        "items": [
+          {
+            "title": "Mangusta",
+            "description": "Our flagship product",
+            "link": "/en/mangusta"
+          }
+        ]
+      }
+    ]
+  }
+}

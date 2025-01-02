@@ -1,0 +1,38 @@
+---
+import type { ProductContent } from '../utils/content-types';
+
+interface Props {
+  content: ProductContent;
+}
+
+const { content } = Astro.props;
+---
+
+<article class="container mx-auto px-4 py-8">
+  <h1 class="text-4xl font-bold mb-4">{content.title}</h1>
+  <p class="text-lg mb-8">{content.description}</p>
+  
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold mb-4">Features</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {content.features.map(feature => (
+        <div class="bg-white p-4 rounded-lg shadow">
+          <h3 class="font-bold mb-2">{feature.title}</h3>
+          <p>{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+  
+  <section>
+    <h2 class="text-2xl font-bold mb-4">Specifications</h2>
+    <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {Object.entries(content.specifications).map(([key, value]) => (
+        <div class="bg-white p-4 rounded-lg shadow">
+          <dt class="font-bold mb-1">{key}</dt>
+          <dd>{value}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+</article>

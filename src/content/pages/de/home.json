@@ -1,0 +1,26 @@
+{
+  "type": "page",
+  "slug": "home",
+  "title": "Willkommen",
+  "description": "Unsere Hauptseite",
+  "content": {
+    "hero": {
+      "title": "Willkommen auf unserer Website",
+      "subtitle": "Innovation und Qualität zu Ihren Diensten",
+      "cta": "Mehr erfahren"
+    },
+    "sections": [
+      {
+        "type": "featured",
+        "title": "Unsere Hauptprodukte",
+        "items": [
+          {
+            "title": "Mangusta",
+            "description": "Unser Flaggschiff-Produkt",
+            "link": "/de/mangusta"
+          }
+        ]
+      }
+    ]
+  }
+}

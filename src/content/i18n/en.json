@@ -1,0 +1,15 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "research": "Research & Development",
+    "blog": "Blog",
+    "contact": "Contact",
+    "configurator": "Configurator",
+    "technical": "Technical Area"
+  },
+  "common": {
+    "readMore": "Read More",
+    "contactUs": "Contact Us"
+  }
+}

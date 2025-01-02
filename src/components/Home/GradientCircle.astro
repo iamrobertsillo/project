@@ -1,0 +1,87 @@
+---
+const { 
+  label = 'SCROLL',
+  customClass = '',
+  customLabelClass = ''
+  } = Astro.props;
+
+---
+
+
+<div class=`rounded-gradient-border circle-size ${customClass}`>
+  <span class={customLabelClass}>{label}</span>
+</div>
+
+<style>
+  .slide-top {
+    -webkit-animation: slide-top 0.5s infinite alternate both;
+            animation: slide-top 0.5s infinite alternate both;
+  }
+
+  .rounded-gradient-border {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline: auto;
+    position: relative;
+    z-index: 10;
+  }
+
+  .rounded-gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    border-radius: 1000px;
+    background: linear-gradient(90deg,#000D00,#F5F5F5, #95C11F, #04A64B, #006A3B, #000D00) border-box; /*3*/
+    mask:
+      linear-gradient(#000 0 0) padding-box, 
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    z-index: -1;
+  }
+  .rounded-gradient-border:hover::before {
+    mask-composite: exclude;
+  }
+
+  .circle-size {
+    width: 100px;
+    height: 100px;
+  }
+  
+  @media (min-width: 1024px) {
+    .rounded-gradient-border::before {
+      border-width: 0.139vw;
+    }
+    .circle-size {
+      width: 6.653vw;
+      height: 6.653vw;
+    }
+  }
+
+  /**
+  * ----------------------------------------
+  * animation slide-top
+  * ----------------------------------------
+  */
+  @-webkit-keyframes slide-top {
+    0% {
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+    }
+    100% {
+      -webkit-transform: translateY(-10px);
+              transform: translateY(-10px);
+    }
+  }
+  @keyframes slide-top {
+    0% {
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+    }
+    100% {
+      -webkit-transform: translateY(-10px);
+              transform: translateY(-10px);
+    }
+  }
+</style>

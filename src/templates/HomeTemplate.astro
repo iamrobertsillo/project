@@ -1,0 +1,37 @@
+---
+import type { PageContent } from '../utils/content-types';
+import Hero from '../components/Home/Hero.astro';
+import FeaturedProducts from '../components/Home/FeaturedProducts.astro';
+
+interface Props {
+  content: PageContent;
+}
+
+const { content } = Astro.props;
+const { hero, sections } = content.content;
+---
+
+<div>
+  <!-- Hero Section -->
+  <Hero title={hero.title} subtitle={hero.subtitle} />
+  <FeaturedProducts />
+
+  <!-- Content Sections -->
+  {sections.map(section => (
+    <section class="py-16">
+      <h2 class="mb-8">{section.title}</h2>
+      {section.type === 'featured' && (
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {section.items.map(item => (
+            <a href={item.link} class="block group">
+              <div class="bg-white rounded-lg shadow-md p-6 transition-transform group-hover:-translate-y-1">
+                <h3 class="mb-2">{item.title}</h3>
+                <p class="text-gray-600">{item.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </section>
+  ))}
+</div>

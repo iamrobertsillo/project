@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import GradientCircle from './GradientCircle.astro';
+const {title, subtitle} = Astro.props
+
+import line from '../../../public/graphics/home-hero-line.svg';
+---
+
+<style>
+  .hero {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+</style>
+
+<section class="hero m-m p-l lg:p-xxxl rounded-xl" style={`background-image: url(./images/are-ascensori-main-image.jpg)`}>
+  <div class="h-[480px] lg:h-[45vw] flex flex-col lg:flex-row items-end justify-end lg:justify-between gap-xl mb-xl">
+    <div class="w-full lg:w-2/4">
+      <h1 set:html={title}></h1>
+    </div>
+    <div class="w-full lg:w-1/3 relative">
+      <Image src={line} alt="Decorative Line" class="w-[6vw] absolute -left-12 lg:left-0 bottom-24 sm:-bottom-20 md:-bottom-20 lg:bottom-[2.333vw]"/>
+      <p set:html={subtitle} class="pl-0 lg:pl-xl"></p>
+    </div>
+  </div>
+  <div class="w-full text-center">
+    <GradientCircle customLabelClass="slide-top text-14"  />
+  </div>
+</section>

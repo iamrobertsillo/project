@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getLanguageFromURL } from '../utils/i18n';
+// import { getContentBySlug, getAllContentTypes, getAllRoutes } from '../utils/content-loader';
+
+// Dynamic import of all templates
+const templates = Object.fromEntries(
+  Object.entries(import.meta.glob('../templates/*.astro', { eager: true }))
+    .map(([path, template]) => [path.split('/').pop().replace('Template.astro', '').toLowerCase(), template])
+);
+
+export async function getStaticPaths() {
+  const contentFiles = import.meta.glob('../content/**/*.json', { eager: true });
+  const paths = [];
+
+  for (const [path, content] of Object.entries(contentFiles)) {
+    const match = path.match(/\/content\/(.+?)\/([a-z]{2})\/(.+?)\.json$/);
+    if (match) {
+      const [, type, lang, slug] = match;
+      // Skip adding language prefix for Italian (default language)
+      const urlPath = lang === 'it' ? slug : `${lang}/${slug}`;
+      paths.push({
+        params: { slug: urlPath },
+        props: { type: type.slice(0, -1), content } // Remove trailing 's' from type
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { slug } = Astro.params;
+const { type, content } = Astro.props;
+const lang = getLanguageFromURL(Astro.url.pathname);
+
+const Template = templates[content.type]?.default;
+---
+
+{Template ? (
+  <Layout title={content.title} lang={lang}>
+    <Template content={content} />
+  </Layout>
+) : (
+  <Layout title="404" lang={lang}>
+    <div class="container mx-auto px-4 py-8">
+      <h1 class="text-4xl font-bold">Page not found</h1>
+    </div>
+  </Layout>
+)}

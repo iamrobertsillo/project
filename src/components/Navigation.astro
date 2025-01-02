@@ -1,0 +1,27 @@
+---
+import { getLanguageFromURL, useTranslations } from '../utils/i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+import Image from 'astro/components/Image.astro';
+
+import Logo from '../../public/are-ascensori-logo.svg';
+
+const lang = getLanguageFromURL(Astro.url.pathname);
+const t = useTranslations(lang);
+---
+
+<nav id="main-nav" class="fixed top-0 left-0 w-full z-50 px-xxxl py-xl">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center h-20">
+      <a href={`/${lang === 'it' ? '' : lang}`} class="text-2xl font-bold">
+      <Image src={Logo} alt="Are Ascensori Logo" class="w-40" />
+      </a>
+      <div class="flex items-center gap-4">
+        <LanguageSwitcher />
+        <button id="menu-trigger" class="text-2xl">☰</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Rest of the Navigation component remains the same -->

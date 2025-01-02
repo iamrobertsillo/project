@@ -1,0 +1,30 @@
+---
+import { getAvailableLanguages, getLanguageFromURL } from '../utils/i18n';
+
+const currentPath = Astro.url.pathname;
+const currentLang = getLanguageFromURL(currentPath);
+const languages = getAvailableLanguages();
+
+function getLocalizedPath(lang: string) {
+  if (lang === 'it') {
+    return currentPath.replace(/^\/[a-z]{2}\//, '/');
+  }
+  
+  if (currentLang === 'it') {
+    return `/${lang}${currentPath}`;
+  }
+  
+  return currentPath.replace(/^\/[a-z]{2}\//, `/${lang}/`);
+}
+---
+
+<div class="flex gap-s px-s">
+  {languages.map((lang) => (
+    <a
+      href={getLocalizedPath(lang)}
+      class={`uppercase ${currentLang === lang ? 'text-16' : 'uppercase text-16'}`}
+    >
+      {lang}
+    </a>
+  ))}
+</div>

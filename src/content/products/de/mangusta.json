@@ -1,0 +1,17 @@
+{
+  "slug": "mangusta",
+  "type": "produkte",
+  "title": "Mangusta",
+  "description": "Descrizione del prodotto Mangusta",
+  "image": "./images/products/mangusta-foto-principale.jpg",
+  "features": [
+    {
+      "title": "Caratteristica 1",
+      "description": "Descrizione della caratteristica 1"
+    }
+  ],
+  "specifications": {
+    "dimensions": "100x50x30cm",
+    "weight": "5kg"
+  }
+}

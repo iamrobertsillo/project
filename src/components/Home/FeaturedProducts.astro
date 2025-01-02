@@ -1,0 +1,134 @@
+---
+import { getContentByType } from '../../utils/content-loader';
+import { getLanguageFromURL } from '../../utils/i18n';
+import GradientCircle from '../Home/GradientCircle.astro';
+import Carousel from '../Carousel.astro';
+import { Debug } from 'astro:components';
+
+const lang = getLanguageFromURL(Astro.url.pathname);
+const products = getContentByType('product', lang);
+---
+
+<style>
+  .interchangable_cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: 44.444vw;
+  }
+  .interchangable_card {
+    @apply bg-foreground rounded-ll;
+    height: 44.444vw;
+    overflow: hidden;
+    grid-area: 1 / 1 / 2 / 2;
+  }
+  .interchangable_card img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+    transform: scale(0.999) translateX(-2px);
+  }
+  .arrow_element {
+    --arrow-size: 5vw;
+    width: var(--arrow-size);
+    height: var(--arrow-size);
+    overflow: hidden;
+  }
+  .arrow_holder { transition: var(--iconTransition); }
+  .arrow_element svg { width: 100%; height: 100%; }
+  .product_link:hover .arrow_holder { transform: translateY(-5vw); }
+</style>
+
+<section class="px-l lg:px-xxxl pb-giant with-gradient__bottom-left">
+  <div class="hidden lg:block">
+    <div class="text-center">
+      <span class="font-medium text-120 opacity-20 reveal-it" style="font-variation-settings: 'wght' 500;">Prodotti in evidenza</span>
+    </div>
+    <div class="flex flex-row items-center gap-huge">
+      <div class="w-1/2">
+        <div class="interchangable_cards">
+          {products.map(product => (
+            <div class={`interchangable_card card_${product.slug}`} data-card={`card_${product.slug}`} style="display: none;">
+              <img src={product.image} alt={product.title} class="rounded-ll" />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="w-1/2 flex flex-col gap-huge">
+        {products.map((product, i) => {
+          const isDefaultLanguage = lang === 'it'; // Check if the language is the default language
+          const urlPrefix = isDefaultLanguage ? '' : `/${lang}`;
+          const productUrl = `${urlPrefix}/${product.slug}`;
+
+          return (
+            <a href={productUrl} class="product_link flex items-center gap-24 justify-between" data-activate-card={`card_${product.slug}`}>
+              <div class="flex flex-row gap-xl items-center">
+                <GradientCircle customClass="circle-size" customLabelClass="text-32" label={i + 1} />
+                <div>
+                  <h3 class="text-accent text-44">{product.title}</h3>
+                  <p>{product.description}</p>
+                </div>
+              </div>
+              <div class="arrow_element">
+                <div class="arrow_holder">
+                  <svg class="brxe-zcphrn brxe-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 83 83" fill="none">
+                    <g clip-path="url(#clip0_1984_1389)">
+                      <path d="M24.2083 58.7916L58.7916 24.2083" stroke="#EEEFEC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M24.2083 24.2083H58.7916V58.7916" stroke="#EEEFEC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_1984_1389">
+                        <rect width="83" height="83" fill="white"></rect>
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+  <div class="block lg:hidden">
+    <Carousel contentType="product" />
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+
+  const links = document.querySelectorAll('a[data-activate-card]');
+  const cards = document.querySelectorAll('.interchangable_card');
+
+  links.forEach(link => {
+    const cardToShow = link.getAttribute('data-activate-card');
+
+    link.addEventListener('mouseenter', () => {
+      const currentCard = document.querySelector(`.interchangable_card.${cardToShow}`);
+
+      // Animazione fade-in-left
+      gsap.fromTo(currentCard,
+        { opacity: 0, x: -100 },
+        { opacity: 1, x: 0, duration: 0.5, display: 'block' }
+      );
+
+      // Nascondere le altre cards
+      cards.forEach(card => {
+        if (!card.classList.contains(cardToShow)) {
+          gsap.to(card, { opacity: 0, display: 'none', duration: 0.5 });
+        }
+      });
+    });
+
+    link.addEventListener('mouseleave', () => {
+      const currentCard = document.querySelector(`.interchangable_card.${cardToShow}`);
+
+      // Animazione fade-in-right all'uscita
+      gsap.fromTo(currentCard,
+        { opacity: 1, x: 0 },
+        { opacity: 0, x: 100, duration: 0.5, display: 'none' }
+      );
+    });
+  });
+</script>
