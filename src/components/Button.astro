@@ -1,0 +1,79 @@
+---
+import { getContentByType } from '../utils/content-loader';
+import { getLanguageFromURL } from '../utils/i18n';
+import icons from '../utils/icons';
+
+const { contentType = 'common' } = Astro.props;
+const lang = getLanguageFromURL(Astro.url.pathname);
+const content = getContentByType(contentType, lang);
+
+const { 
+  label = content.readMore, // Default to content.readMore
+  action = '#',
+  button = '',
+  customClass = '',
+  icon = '',
+  state = '' 
+} = Astro.props;
+
+const iconMarkup = icons[icon] || { light: '', dark: '' };
+---
+
+<a 
+  {...action !== '' ? { 'href': action } : {} } 
+  {...button !== '' ? { 'data-attribute': button } : {} }
+  class={`button ${customClass}`}
+>
+  <div class="button__inner flex flex-row gap-s items-center relative z-20">
+    <span class={`button__label ${state === 'light' ? 'text-light' : 'text-dark'}`}>{label}</span>
+    <span class="button__icons-wrapper">
+      <span class="button__icons">
+        <span class={`button__icon button__icon--light ${state === 'light' ? 'order-1' : 'order-2'}`} aria-hidden="true" set:html={iconMarkup.light}></span>
+        <span class={`button__icon button__icon--dark ${state === 'dark' ? 'order-1' : 'order-2'}`} aria-hidden="true" set:html={iconMarkup.dark}></span>
+      </span>
+    </span>
+  </div>
+  <span class={`button__overlay z-10 ${state === 'light' ? 'state-light' : 'state-dark'}`}></span>
+</a>
+
+
+
+<style>
+  .button { @apply flex items-center gap-l py-m px-l rounded-full relative cursor-pointer overflow-hidden; }
+
+  /** Contenitore delle icone */
+  .button__icons-wrapper { 
+    @apply overflow-hidden;
+    width: 1.667vw; 
+    height: 1.667vw;
+  }
+
+  /** Label */
+  .button__label { @apply pointer-events-none inline -mb-xs; font-variation-settings: 'wght' 500; font-weight: 500; transition: var(--iconTransition); }
+
+  /** Definisci i colori light e dark */
+  .text-light { @apply text-foreground; }
+  .text-dark { @apply text-background; }
+
+  /** Icone */
+  .button__icon--light, .button__icon--dark { transition: var(--iconTransition); }
+  .button__icons { @apply flex flex-col; position: relative; transition: var(--iconTransition); }
+
+  /** Button Overlay */
+  .button__overlay {
+    @apply absolute inset-none rounded-xl translate-y-full transition-transform duration-300 ease-defaultEase pointer-events-none scale-75 origin-center;
+  }
+  .button__overlay.state-light { @apply bg-foreground; }
+  .button__overlay.state-dark { @apply bg-background; }
+  
+
+  /** Hover states */
+  .button:hover .button__icons { transform: translateY(-1.667vw); transition: var(--iconTransition); }
+  .button:hover .button__overlay { @apply scale-110 translate-y-none duration-200 ease-defaultEase; }
+
+  .button.default-state:hover .button__label { @apply text-background; }
+  .button.inverted-state:hover .button__label { @apply text-foreground; }
+
+  .button:hover .text-light { @apply text-background; }
+  .button:hover .text-dark { @apply text-foreground; }
+</style>

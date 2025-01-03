@@ -1,5 +1,13 @@
 ---
+import { Debug } from 'astro:components';
 import type { ProductContent } from '../utils/content-types';
+import { getContentByType } from '../utils/content-loader';
+import { getLanguageFromURL } from '../utils/i18n';
+import { Image } from 'astro:assets';
+import Button from '../components/Button.astro';
+
+const lang = getLanguageFromURL(Astro.url.pathname);
+const commonContent = getContentByType('common', lang);
 
 interface Props {
   content: ProductContent;
@@ -8,13 +16,31 @@ interface Props {
 const { content } = Astro.props;
 ---
 
+<style>
+  .featured-image {
+    height: 720px;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>
+
 <article class="container mx-auto px-4 py-giant">
-  <div class="w-1/2">
-    <h1 class="text-4xl mb-4" set:html={content.subtitle}></h1>
-    <h2 class="text-accent mb-4" set:html={content.title}></h2>
-    <p class="text-lg mb-8" set:html={content.description}></p>
+
+  <div class="flex items-center gap-huge">
+    <div class="w-1/2 flex flex-col gap-s">
+      <h1 class="text-4xl mb-s" set:html={content.subtitle}></h1>
+      <h2 class="text-accent mb-s" set:html={content.title}></h2>
+      <p class="text-lg mb-s" set:html={content.description}></p>
+      <div class="flex">
+        <Button label={commonContent.readMore} action={commonContent.contactUs} customClass="bg-accent text-white" />
+
+        <Button label={commonContent.readMore} action={commonContent.contactUs} customClass="bg-accent text-white" />
+      </div>
+    </div>
+    <div class="w-1/2">
+      <Image src={content.image} alt={content.title} class="featured-image rounded-lg" width={640} height={780} />
+    </div>
   </div>
-  <div class="w-1/2"></div>
   
   
   <section class="mb-8">
@@ -40,4 +66,6 @@ const { content } = Astro.props;
       ))}
     </dl>
   </section>
+
+  
 </article>

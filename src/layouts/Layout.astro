@@ -1,28 +1,32 @@
 ---
 import Navigation from '../components/Navigation.astro';
+import SEO from '../components/SEO.astro';
 import '../styles/global.css';
 
-interface Props {
-  title: string;
-  lang: 'en' | 'it' | 'de';
-}
-
-const { title, lang } = Astro.props;
+const { title, description, image, type = 'website', lang } = Astro.props;
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <SEO 
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      lang={lang}
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <link rel="stylesheet" href="https://use.typekit.net/ysl1tje.css">
+    <link rel="stylesheet" href="https://fonts.adobe.com/fonts/gate-a1-variable#fonts-section">
   </head>
   <body>
     <Navigation />
     <main class="content-wrapper">
       <slot />
     </main>
+
+    <script type="text/partytown" src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src='/src/js/global.js'></script>
   </body>
 </html>

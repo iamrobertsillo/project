@@ -12,7 +12,9 @@
     "sections": [
       {
         "type": "featured",
-        "title": "I nostri prodotti in evidenza",
+        "label": "I prodotti ARE",
+        "title": "ARE, ascensori a <br/> risparmio energetico",
+        "description": "A.R.E. Srl è un’azienda all’avanguardia che produce piattaforme e ascensori a risparmio energetico. Grazie a un costante investimento in ricerca e sviluppo, oggi siamo diventati un riferimento per chi cerca soluzioni innovative, sicure e 100% Made in Italy.",
         "items": [
           {
             "title": "Mangusta",

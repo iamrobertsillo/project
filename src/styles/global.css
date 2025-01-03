@@ -121,11 +121,19 @@
 }
 
 /* Fluid typography */
-:root {
-  font-size: clamp(16px, calc(16px + 0.5vw), 24px);
-}
+:root { font-size: clamp(16px, calc(16px + 0.5vw), 24px); }
 
 /* Typography scale */
+
+body {
+  @apply bg-background text-foreground;
+  font-family: "gate-a1-variable", sans-serif;
+  font-weight: 300;
+  font-variation-settings: 'wght' 300;
+  margin: 0;
+  overflow-x: hidden;
+}
+
 h1, h2, h3, h4, h5, h6 { font-weight: 500; font-variation-settings: 'wght' 500;}
 h1 {
 	font-size: var(--text-4xl); /* h1 a 64px */
@@ -165,6 +173,12 @@ p {
 small { font-size: var(--text-s); /* Testo più piccolo */ }
 a { display: inline-block; width: auto; }
 
+.gradient_text {
+  background: -webkit-linear-gradient(left,#04a64b,#95c11f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Layout classes */
 .content-wrapper {
   width: min(100%, var(--content-max-width));
@@ -184,11 +198,6 @@ a { display: inline-block; width: auto; }
   padding-inline: var(--page-padding);
 }
 
-body {
-  @apply bg-background text-foreground;
-  margin: 0;
-  overflow-x: hidden;
-}
 
 /* Maintain spacing on zoom */
 @media screen and (min-width: 2000px) {
@@ -197,3 +206,33 @@ body {
     max-width: var(--content-max-width);
   }
 }
+
+
+
+/**
+ * 02. Buttons
+ */
+
+.gradient-cta {
+  background-image: linear-gradient(to right,#04a64b,#95c11f);
+  box-shadow: 0 0 35px 0 #95c11f;
+}
+
+
+
+/*
+  03. Forms
+  */
+
+input,
+select,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  @apply p-s;
+  border: 0.139vw solid #04a64b;
+  border-radius: 1000px;
+  background-color: transparent;
+}
+textarea { border-radius: 0.556vw; }

@@ -7,6 +7,8 @@ import { Debug } from 'astro:components';
 
 const lang = getLanguageFromURL(Astro.url.pathname);
 const products = getContentByType('product', lang);
+
+const { title, description, label } = Astro.props;
 ---
 
 <style>
@@ -39,11 +41,17 @@ const products = getContentByType('product', lang);
   .product_link:hover .arrow_holder { transform: translateY(-5vw); }
 </style>
 
-<section class="px-l lg:px-xxxl pb-giant with-gradient__bottom-left">
+<section class="px-l lg:px-xxxl py-giant with-gradient__bottom-left">
   <div class="hidden lg:block">
+
     <div class="text-center">
-      <span class="font-medium text-120 opacity-20 reveal-it" style="font-variation-settings: 'wght' 500;">Prodotti in evidenza</span>
+      <div class="w-1/2 mx-auto flex flex-col gap-l mb-xxxl">
+        <h2 class="blur-element" set:html={title}></h2>
+        <p class="blur-element" set:html={description}></p>
+      </div>
+      <span class="font-medium text-120 opacity-20 reveal-it" style="font-variation-settings: 'wght' 500;" set:html={label}></span>
     </div>
+
     <div class="flex flex-row items-center gap-huge">
       <div class="w-1/2">
         <div class="interchangable_cards">

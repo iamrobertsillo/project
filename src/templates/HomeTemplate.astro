@@ -1,4 +1,5 @@
 ---
+import { Debug } from 'astro:components';
 import type { PageContent } from '../utils/content-types';
 import Hero from '../components/Home/Hero.astro';
 import FeaturedProducts from '../components/Home/FeaturedProducts.astro';
@@ -14,7 +15,7 @@ const { hero, sections } = content.content;
 <div>
   <!-- Hero Section -->
   <Hero title={hero.title} subtitle={hero.subtitle} />
-  <FeaturedProducts />
+  <FeaturedProducts title={sections[0].title} description={sections[0].description} label={sections[0].label} />
 
   <!-- Content Sections -->
   {sections.map(section => (

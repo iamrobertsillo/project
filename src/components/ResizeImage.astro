@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  image: string;
+  text?: string;
+}
+
+const { image, text } = Astro.props;
+---
+
+<style>
+  .resize {
+    animation: resize-animation 5s infinite;
+  }
+
+  @keyframes resize-animation {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  .overlayed-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .blur-element {
+    filter: blur(2px);
+  }
+</style>
+
+<section class="overlayed-section">
+  {text && (
+    <div class="lg:max-w-[32vw] text-center">
+      <span class="text-24 blur-element">{text}</span>
+    </div>
+  )}
+  <div>
+    <Image src={image} alt="" class="w-full resize" />
+  </div>
+</section>

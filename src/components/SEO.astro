@@ -1,0 +1,59 @@
+---
+const {
+  title,
+  description = "Are Ascensori - Ascensori Elettrici ad Elevata Efficienza Energetica",
+  image = "/images/are-ascensori-main-image.jpg",
+  canonicalURL = Astro.url.href,
+  type = "website",
+  lang
+} = Astro.props;
+
+const siteTitle = "Are Ascensori";
+const fullTitle = title === siteTitle ? title : `${title} | ${siteTitle}`;
+
+// Ensure image URL is absolute
+const absoluteImageUrl = image.startsWith('http') 
+  ? image 
+  : new URL(image, Astro.site || Astro.url.origin).toString();
+
+// Generate language-specific URLs
+const baseUrl = Astro.url.origin;
+const path = Astro.url.pathname;
+const itUrl = `${baseUrl}${path.replace(/^\/[a-z]{2}\//, '/')}`;
+const enUrl = `${baseUrl}/en${path.replace(/^\/[a-z]{2}\//, '/')}`;
+const deUrl = `${baseUrl}/de${path.replace(/^\/[a-z]{2}\//, '/')}`;
+---
+
+<!-- Primary Meta Tags -->
+<title>{fullTitle}</title>
+<meta name="title" content={fullTitle} />
+<meta name="description" content={description} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Language Alternates -->
+<link rel="alternate" hreflang="it" href={itUrl} />
+<link rel="alternate" hreflang="en" href={enUrl} />
+<link rel="alternate" hreflang="de" href={deUrl} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={absoluteImageUrl} />
+<meta property="og:locale" content={lang} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={fullTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={absoluteImageUrl} />
+
+<!-- Additional Meta Tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="index, follow" />
+<meta name="generator" content={Astro.generator} />
