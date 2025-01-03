@@ -1,9 +1,10 @@
 {
   "slug": "mangusta",
-  "type": "produkte",
+  "type": "product",
   "title": "Mangusta",
+  "subtitle": "Piattaforma elevatrice elettrica a risparmio energetico",
   "description": "Descrizione del prodotto Mangusta",
-  "image": "./images/products/mangusta-foto-principale.jpg",
+  "image": "/images/products/mangusta-foto-principale.jpg",
   "features": [
     {
       "title": "Caratteristica 1",

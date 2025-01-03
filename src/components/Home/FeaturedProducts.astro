@@ -65,8 +65,8 @@ const products = getContentByType('product', lang);
               <div class="flex flex-row gap-xl items-center">
                 <GradientCircle customClass="circle-size" customLabelClass="text-32" label={i + 1} />
                 <div>
-                  <h3 class="text-accent text-44">{product.title}</h3>
-                  <p>{product.description}</p>
+                  <h3 class="text-accent text-44" set:html={product.title}></h3>
+                  <p set:html={product.subtitle}></p>
                 </div>
               </div>
               <div class="arrow_element">

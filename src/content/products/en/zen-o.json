@@ -2,8 +2,9 @@
   "slug": "zen-o",
   "type": "product",
   "title": "Zen-0",
+  "subtitle": "Piattaforma elevatrice elettrica a risparmio energetico",
   "description": "Description of Zen-0 product",
-  "image": "./images/products/zen_principale-scaled.jpg",
+  "image": "/images/products/zen_principale-scaled.jpg",
   "features": [
     {
       "title": "Feature 1",
