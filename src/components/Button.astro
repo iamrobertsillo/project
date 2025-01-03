@@ -13,7 +13,8 @@ const {
   button = '',
   customClass = '',
   icon = '',
-  state = '' 
+  state = '',
+  glow = false
 } = Astro.props;
 
 const iconMarkup = icons[icon] || { light: '', dark: '' };
@@ -22,7 +23,7 @@ const iconMarkup = icons[icon] || { light: '', dark: '' };
 <a 
   {...action !== '' ? { 'href': action } : {} } 
   {...button !== '' ? { 'data-attribute': button } : {} }
-  class={`button ${customClass}`}
+  class={`button ${customClass} ${glow ? 'button-glow' : ''}`}
 >
   <div class="button__inner flex flex-row gap-s items-center relative z-20">
     <span class={`button__label ${state === 'light' ? 'text-light' : 'text-dark'}`}>{label}</span>
@@ -36,10 +37,10 @@ const iconMarkup = icons[icon] || { light: '', dark: '' };
   <span class={`button__overlay z-10 ${state === 'light' ? 'state-light' : 'state-dark'}`}></span>
 </a>
 
-
-
 <style>
-  .button { @apply flex items-center gap-l py-m px-l rounded-full relative cursor-pointer overflow-hidden; }
+  .button { 
+    @apply py-m px-l rounded-full relative cursor-pointer overflow-hidden;
+  }
 
   /** Contenitore delle icone */
   .button__icons-wrapper { 
@@ -65,6 +66,13 @@ const iconMarkup = icons[icon] || { light: '', dark: '' };
   }
   .button__overlay.state-light { @apply bg-foreground; }
   .button__overlay.state-dark { @apply bg-background; }
+
+
+  /** Button Glow */
+  .button-glow {
+    background-image: linear-gradient(to right,#04a64b,#95c11f);
+    box-shadow: 0 0 35px 0 #95c11f;
+  }
   
 
   /** Hover states */

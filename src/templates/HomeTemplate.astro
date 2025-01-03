@@ -3,13 +3,17 @@ import { Debug } from 'astro:components';
 import type { PageContent } from '../utils/content-types';
 import Hero from '../components/Home/Hero.astro';
 import FeaturedProducts from '../components/Home/FeaturedProducts.astro';
+import ResizeImage from '../components/ResizeImage.astro';
+import Lottie from "@advanced-astro/lottie/Lottie.astro";
+
+import Button from '../components/Button.astro';
+import StackingCards from '../components/StackingCards.astro';
 
 interface Props {
   content: PageContent;
 }
-
 const { content } = Astro.props;
-const { hero, sections } = content.content;
+const { hero, sections, homeContent } = content.content;
 ---
 
 <div>
@@ -17,22 +21,30 @@ const { hero, sections } = content.content;
   <Hero title={hero.title} subtitle={hero.subtitle} />
   <FeaturedProducts title={sections[0].title} description={sections[0].description} label={sections[0].label} />
 
+  <ResizeImage image={sections[1].image} text={sections[1].text} />
+
   <!-- Content Sections -->
-  {sections.map(section => (
-    <section class="py-16">
-      <h2 class="mb-8">{section.title}</h2>
-      {section.type === 'featured' && (
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {section.items.map(item => (
-            <a href={item.link} class="block group">
-              <div class="bg-white rounded-lg shadow-md p-6 transition-transform group-hover:-translate-y-1">
-                <h3 class="mb-2">{item.title}</h3>
-                <p class="text-gray-600">{item.description}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      )}
-    </section>
-  ))}
+  {sections.map(section => {
+    if (section.type === 'requests') {
+      return (
+        <section class="py-xxxxl grid">
+          <div class="overlayed-section">
+            <div class="w-full max-w-[50vw] text-center mx-auto flex flex-col gap-xxl items-center">
+              <p class="text-24 text-center" set:html={section.description}></p>
+              <Button label={section.label} icon="arrow" customClass="bg-accent-gradient" state="light" action={section.link} button="" glow="true" />
+            </div>
+            <div>
+              <Lottie src="/lotties/are_animated_lines_section.json" />
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    if (section.type === 'stacking') {
+      return (
+        <StackingCards data={section} />
+      )
+    }
+  })}
 </div>

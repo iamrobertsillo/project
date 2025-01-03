@@ -1,0 +1,90 @@
+---
+import { Debug } from 'astro:components';
+const { data } = Astro.props
+---
+
+<style>
+  .pinned__stacking-cards { background: linear-gradient(135deg,#04a64b, #95c11f); }
+
+  #stacking-cards-container { @apply text-background relative m-auto flex flex-col gap-xl; }
+
+  .card {
+    @apply bg-white rounded-m bg-no-repeat;
+    background-size: 35%;
+    background-position: bottom -32% right -10%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-column-gap: 0px;
+    grid-row-gap: var(--space-xl);
+
+    height: auto;
+
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+  }
+  .card__content:first-of-type { grid-area: 1 / 1 / 2 / 2; }
+  .card__content:nth-of-type(2) { grid-area: 2 / 1 / 3 / 2; }
+  .card__content:last-of-type { 
+    display: flex;
+    align-items: flex-end;
+    grid-area: 3 / 1 / 4 / 2; }
+
+  .card__label {
+    line-height: 110%;
+    font-weight: 400;
+    font-variation-settings: 'wght' 400;
+  }
+  .card__title {
+    font-weight: 400;
+    font-variation-settings: 'wght' 400;
+  }
+  .card__number {
+    line-height: 100%;
+    font-weight: 500;
+    font-variation-settings: 'wght' 500;
+  }
+
+  .card__content {
+    transition: opacity 0.3s ease-in-out;
+    will-change: opacity;
+  }
+
+  @media ( min-width: 1024px ) {
+    .card { 
+      grid-template-columns: repeat(2, 1fr);
+      height: 50vw;
+    }
+    .card__content:first-of-type { grid-area: 1 / 1 / 2 / 2; }
+    .card__content:nth-of-type(2) { grid-area: 1 / 2 / 3 / 3; }
+    .card__content:last-of-type { grid-area: 2 / 1 / 3 / 2; }
+  }
+</style>
+
+<section class="px-xxxl py-giant pinned__stacking-cards">
+
+  <div class="-mb-xxxxl w-full text-center">
+    <span class="text-120 font-bold reveal-it">{data.label}</span>
+  </div>
+
+  <div id="stacking-cards-container">
+    {data.cards.map((card, i) => (
+      <div class="card p-xxxl" style="background-image: url('graphics/stacking_cards_bg.svg')">
+        <div class="card__content">
+          <span class="card__label gradient_text text-24" set:html={card.label}></span>
+        </div>
+        <div class="card__content flex flex-col gap-xl">
+          <p class="card__title text-32" set:html={card.title}></p>
+          <p set:html={card.description}></p>
+        </div>
+        <div class="card__content">
+          <span class="card__number gradient_text text-228 leading-none" set:html=`0${i+1}` />
+        </div>
+      </div>
+    ))}
+  </div>
+
+</section>

@@ -10,36 +10,37 @@ const { image, text } = Astro.props;
 ---
 
 <style>
-  .resize {
-    animation: resize-animation 5s infinite;
-  }
 
-  @keyframes resize-animation {
-    0%, 100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-  }
 
-  .overlayed-section {
-    position: relative;
-    overflow: hidden;
-  }
+  /* 06. Overlayed Sections */
+.overlayed-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  place-items: center;
+  width: 100%;
+}
+.overlayed-section div { width: 100%; }
+.overlayed-section div:first-of-type { 
+  z-index: 10;
+  position: relative;
+  grid-area: 1 / 1 / 2 / 2; }
+.overlayed-section div:last-of-type { 
+  z-index: 1; 
+  position: relative;
+  grid-area: 1 / 1 / 2 / 2; }
 
-  .blur-element {
-    filter: blur(2px);
-  }
 </style>
 
 <section class="overlayed-section">
   {text && (
     <div class="lg:max-w-[32vw] text-center">
-      <span class="text-24 blur-element">{text}</span>
+      <span class="text-24 blur-element" set:html={text}></span>
     </div>
   )}
   <div>
-    <Image src={image} alt="" class="w-full resize" />
+    <Image src={image} alt="" class="w-full resize" width="1920" height="1024" />
   </div>
 </section>

@@ -22,6 +22,26 @@
             "link": "/mangusta"
           }
         ]
+      },
+      {
+        "type": "pioneers",
+        "text": "Pionieri nella produzione di ascensori e piattaforme elettriche a batteria",
+        "image": "/images/Proposta-Home-Page-Optim-Scalato.jpg"
+      },
+      {
+        "type": "requests",
+        "description": "L’efficienza energetica è da sempre il nostro obiettivo: investiamo costantemente nello sviluppo di tecnologie che garantiscono soluzioni sempre più innovative.",
+        "label": "Richiedi informazioni",
+        "link": "/contatti"
+      },
+      {
+        "type": "stacking",
+        "label": "Perché ARE",
+        "cards": [
+          { "id": "1", "label": "Tecnologie all’avanguardia", "title": "L’obiettivo principale della nostra tecnologia è massimizzare l'efficienza energetica garantendo allo stesso tempo prestazioni ottimali.", "description": "Il fulcro della nostra innovazione tecnologica è il sistema di alimentazione dei nostri elevatori, basato sull'uso di batterie autoricaricabili e alimentabili tramite pannelli solari. Inoltre, la presenza delle batterie assicura il funzionamento degli ascensori anche in caso di mancanza di energia elettrica, garantendo sempre accessibilità e sicurezza.", "featuredImage": "" },
+          { "id": "2", "label":"Garantire l’accessibilità", "title": "Progettiamo elevatori su misura per garantire l’accessibilità alle persone con limitata mobilità e abbattere le barriere architettoniche.", "description": "I nostri elevatori sono studiati per essere installati in ogni tipo di ambiente, anche laddove esistono vincoli architettonici e non è possibile installare elevatori tradizionali per gli spazi ristretti. L’esperienza maturata sul campo ci rende capaci di trovare sempre una soluzione per ogni esigenza.", "featuredImage": "" },
+          { "id": "3", "label": "Progetti su misura", "title": "Siamo i partner ideali per tutti gli studi di progettazione che necessitano di una forte personalizzazione degli elevatori, sia in termini di spazio che di design.", "description": "La personalizzazione delle nostre soluzioni riguarda forme, dimensioni (possono essere installate anche in spazi ristretti, o comunque con limiti vincolanti) e finiture (porte, pareti cabina e i pavimenti), per garantire armonia con l’ambiente esterno in cui è installato l’ascensore.", "featuredImage": "" }
+        ]
       }
     ]
   }
